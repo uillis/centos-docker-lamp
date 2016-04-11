@@ -3,8 +3,7 @@ MAINTAINER Wesley Render <info@otherdata.com>
 
 # Install varioius utilities
 RUN yum -y install curl wget unzip git \
-iproute python-setuptools hostname inotify-tools yum-utils which \
-telnet netstat
+iproute python-setuptools hostname inotify-tools yum-utils which
 
 # Install OpenSSH server and SSH client
 RUN yum install -y openssh-server
