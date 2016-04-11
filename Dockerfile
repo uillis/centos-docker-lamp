@@ -58,6 +58,11 @@ RUN yum -y install mariadb-server mariadb-client
 VOLUME /var/lib/mysql
 EXPOSE 3306
 
+# Setup Drush
+RUN wget http://files.drush.org/drush.phar
+RUN chmod +x drush.phar
+RUN mv drush.phar /usr/local/bin/drush
+
 # -----------------------------------------------------------------------------
 # UTC Timezone & Networking
 # -----------------------------------------------------------------------------
