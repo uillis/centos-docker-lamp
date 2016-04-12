@@ -12,3 +12,9 @@ A CentOS 7 Docker LAMP suitable for local Drupal or WordPress development.
 - Drush
 - NodeJS
 
+# example usage
+- Create a project folder and database folder.
+` mkdir -p project/database
+` cd project
+` docker run -d -p 8080:80 -p 8022:22 -v `pwd`:/var/www/html -v `pwd`/database:/var/lib/phpMyAdmin/upload -t otherdata/centos-lamp
+
