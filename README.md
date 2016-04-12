@@ -25,3 +25,8 @@ Run the command to launch the docker and map project and database directory.
 
 ``docker run -d -p 8080:80 -p 8022:22 -v `pwd`:/var/www/html -v `pwd`/database:/var/lib/phpMyAdmin/upload -t otherdata/centos-lamp``
 
+You can now move a copy of your Drupal or WordPress files into the project folder, and move an .sql dump into the database folder. 
+
+To access the local docker visit http://localhost:8080.  
+
+To access phpMyadmin visit http://localhost:8080/phpmyadmin.   
