@@ -13,10 +13,15 @@ A CentOS 7 Docker LAMP suitable for local Drupal or WordPress development.
 - NodeJS
 
 # example usage
-- Create a project folder and database folder.
+Create a project folder and database folder.
+
 `mkdir -p project/database`
 
+Move into the project folder.
+
 `cd project`
+
+Run the command to launch the docker and map project and database directory.
 
 `docker run -d -p 8080:80 -p 8022:22 -v `pwd`:/var/www/html -v `pwd`/database:/var/lib/phpMyAdmin/upload -t otherdata/centos-lamp`
 
