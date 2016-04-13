@@ -56,42 +56,24 @@ RUN sed -i "/AllowNoPassword.*/ {N; s/AllowNoPassword.*FALSE/AllowNoPassword'] =
 
 # Install MariaDB
 COPY MariaDB.repo /etc/yum.repos.d/MariaDB.repo
-RUN yum clean all
-RUN yum -y install mariadb-server mariadb-client
+RUN yum clean all;yum -y install mariadb-server mariadb-client
 VOLUME /var/lib/mysql
 EXPOSE 3306
 
 # Setup Drush
-RUN wget http://files.drush.org/drush.phar
-RUN chmod +x drush.phar
-RUN mv drush.phar /usr/local/bin/drush
+RUN wget http://files.drush.org/drush.phar;chmod +x drush.phar;mv drush.phar /usr/local/bin/drush
+
+# Setup NodeJS
+RUN curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
+RUN yum -y install nodejs gcc-c++ make
+RUN npm install -g npm
+RUN npm install -g gulp grunt-cli
 
 
 # UTC Timezone & Networking
 RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
 	&& echo "NETWORKING=yes" > /etc/sysconfig/network
 
-# Install Drupal.
-RUN rm -rf /var/www/html
-RUN cd /var/www && \
-	drush dl drupal-7 && \
-	mv /var/www/drupal* /var/www/html
-RUN mkdir -p /var/www/html/sites/default/files && \
-	chmod a+w /var/www/html/sites/default -R && \
-	mkdir /var/www/html/sites/all/modules/contrib -p && \
-	mkdir /var/www/html/sites/all/modules/custom && \
-	mkdir /var/www/html/sites/all/themes/contrib -p && \
-	mkdir /var/www/html/sites/all/themes/custom && \
-	chown -R apache:apache /var/www/html
-
 COPY supervisord.conf /etc/supervisord.conf
 EXPOSE 22 80
 CMD ["/usr/bin/supervisord"]
-
-RUN cd /var/www/html && \
-	drush si -y minimal --db-url=mysql://root:@localhost/drupal --account-pass=admin && \
-	drush dl admin_menu devel && \
-	drush en -y admin_menu simpletest devel && \
-	drush vset "admin_menu_tweak_modules" 1 && \
-	drush vset "admin_theme" "seven" && \
-	drush vset "node_admin_theme" 1
