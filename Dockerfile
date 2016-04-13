@@ -41,6 +41,9 @@ RUN yum-config-manager --enable remi-php70
 
 RUN yum -y install php php-devel php-gd php-pdo php-soap php-xmlrpc php-xml
 
+# Reconfigure Apache
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
+
 # Install phpMyAdmin
 RUN yum -y install phpmyadmin
 RUN sed -i 's/Require ip 127.0.0.1//g' /etc/httpd/conf.d/phpMyAdmin.conf
@@ -63,13 +66,32 @@ RUN wget http://files.drush.org/drush.phar
 RUN chmod +x drush.phar
 RUN mv drush.phar /usr/local/bin/drush
 
-# -----------------------------------------------------------------------------
+
 # UTC Timezone & Networking
-# -----------------------------------------------------------------------------
 RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
 	&& echo "NETWORKING=yes" > /etc/sysconfig/network
 
+# Install Drupal.
+RUN rm -rf /var/www/html
+RUN cd /var/www && \
+	drush dl drupal-7 && \
+	mv /var/www/drupal* /var/www/html
+RUN mkdir -p /var/www/html/sites/default/files && \
+	chmod a+w /var/www/html/sites/default -R && \
+	mkdir /var/www/html/sites/all/modules/contrib -p && \
+	mkdir /var/www/html/sites/all/modules/custom && \
+	mkdir /var/www/html/sites/all/themes/contrib -p && \
+	mkdir /var/www/html/sites/all/themes/custom && \
+	chown -R apache:apache /var/www/html
 
 COPY supervisord.conf /etc/supervisord.conf
 EXPOSE 22 80
 CMD ["/usr/bin/supervisord"]
+
+RUN cd /var/www/html && \
+	drush si -y minimal --db-url=mysql://root:@localhost/drupal --account-pass=admin && \
+	drush dl admin_menu devel && \
+	drush en -y admin_menu simpletest devel && \
+	drush vset "admin_menu_tweak_modules" 1 && \
+	drush vset "admin_theme" "seven" && \
+	drush vset "node_admin_theme" 1
