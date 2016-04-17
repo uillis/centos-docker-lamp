@@ -24,6 +24,10 @@ RUN yum -y install python-setuptools \
 # Install Apache
 RUN yum -y install httpd
 
+# Install Remi PHP Repo
+RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
+&& rpm -Uvh remi-release-7.rpm 
+
 # Install PHP 5.6
 RUN yum -y install php php-mysql php-devel php-gd php-pdo php-soap php-xmlrpc php-xml
 
@@ -31,7 +35,7 @@ RUN yum -y install php php-mysql php-devel php-gd php-pdo php-soap php-xmlrpc ph
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
 
 # Install phpMyAdmin
-RUN yum -y install phpmyadmin \
+RUN yum --enablerepo=remi-test install -y phpMyAdmin \
 && sed -i 's/Require ip 127.0.0.1//g' /etc/httpd/conf.d/phpMyAdmin.conf \
 && sed -i 's/Require ip ::1/Require all granted/g' /etc/httpd/conf.d/phpMyAdmin.conf \
 && sed -i 's/Allow from 127.0.0.1/Allow from all/g' /etc/httpd/conf.d/phpMyAdmin.conf \
