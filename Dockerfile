@@ -2,7 +2,7 @@ FROM centos:centos7
 MAINTAINER Wesley Render <info@otherdata.com>
 
 # Install varioius utilities
-RUN yum -y install curl wget unzip git \
+RUN yum -y install curl wget unzip git vim \
 iproute python-setuptools hostname inotify-tools yum-utils which \
 epel-release openssh-server openssh-clients
 
@@ -40,8 +40,10 @@ RUN yum --enablerepo=remi-test install -y phpMyAdmin \
 && sed -i 's/Allow from 127.0.0.1/Allow from all/g' /etc/httpd/conf.d/phpMyAdmin.conf \
 && sed -i "s/'cookie'/'config'/g" /etc/phpMyAdmin/config.inc.php \
 && sed -i "s/\['user'\] .*= '';/\['user'\] = 'root';/g" /etc/phpMyAdmin/config.inc.php \
-&& sed -i "/AllowNoPassword.*/ {N; s/AllowNoPassword.*FALSE/AllowNoPassword'] = TRUE/g}" /etc/phpMyAdmin/config.inc.php
-
+&& sed -i "/AllowNoPassword.*/ {N; s/AllowNoPassword.*FALSE/AllowNoPassword'] = TRUE/g}" /etc/phpMyAdmin/config.inc.php \
+&& sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 512M/g' /etc/php.ini \
+&& sed -i 's/post_max_size = 8M/post_max_size = 512M/g' /etc/php.ini \
+&& sed -i 's/memory_limit = 128M/memory_limit = 512M/g' /etc/php.ini
 
 # Install MariaDB
 COPY MariaDB.repo /etc/yum.repos.d/MariaDB.repo
@@ -59,7 +61,6 @@ RUN curl --silent --location https://rpm.nodesource.com/setup_4.x | bash - \
 && yum -y install nodejs gcc-c++ make \
 && npm install -g npm \
 && npm install -g gulp grunt-cli
-
 
 # UTC Timezone & Networking
 RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
