@@ -34,7 +34,7 @@ RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
 
 # Install phpMyAdmin
-RUN yum --enablerepo=remi-test install -y phpMyAdmin \
+RUN yum install -y phpMyAdmin \
 && sed -i 's/Require ip 127.0.0.1//g' /etc/httpd/conf.d/phpMyAdmin.conf \
 && sed -i 's/Require ip ::1/Require all granted/g' /etc/httpd/conf.d/phpMyAdmin.conf \
 && sed -i 's/Allow from 127.0.0.1/Allow from all/g' /etc/httpd/conf.d/phpMyAdmin.conf \
