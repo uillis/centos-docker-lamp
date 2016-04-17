@@ -2,7 +2,7 @@ FROM centos:centos7
 MAINTAINER Wesley Render <info@otherdata.com>
 
 # Install varioius utilities
-RUN yum -y install curl wget unzip git \
+RUN yum -y install curl wget unzip git vim \
 iproute python-setuptools hostname inotify-tools yum-utils which \
 epel-release openssh-server openssh-clients
 
