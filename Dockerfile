@@ -26,8 +26,7 @@ RUN yum -y install httpd
 
 # Install Remi PHP Repo
 RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
-&& rpm -Uvh remi-release-7.rpm \
-&& yum --enablerepo=remi-test,remi-php56 install -y phpMyAdmin
+&& rpm -Uvh remi-release-7.rpm
 
 # Install PHP 5.6
 RUN yum-config-manager --enable remi-php56 \
@@ -36,13 +35,17 @@ RUN yum-config-manager --enable remi-php56 \
 # Reconfigure Apache
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
 
-# Configure phpMyAdmin
-RUN sed -i 's/Require ip 127.0.0.1//g' /etc/httpd/conf.d/phpMyAdmin.conf \
+# Configure phpMyAdmin & PHP
+RUN yum install -y phpMyAdmin \
+&& sed -i 's/Require ip 127.0.0.1//g' /etc/httpd/conf.d/phpMyAdmin.conf \
 && sed -i 's/Require ip ::1/Require all granted/g' /etc/httpd/conf.d/phpMyAdmin.conf \
 && sed -i 's/Allow from 127.0.0.1/Allow from all/g' /etc/httpd/conf.d/phpMyAdmin.conf \
 && sed -i "s/'cookie'/'config'/g" /etc/phpMyAdmin/config.inc.php \
 && sed -i "s/\['user'\] .*= '';/\['user'\] = 'root';/g" /etc/phpMyAdmin/config.inc.php \
-&& sed -i "/AllowNoPassword.*/ {N; s/AllowNoPassword.*FALSE/AllowNoPassword'] = TRUE/g}" /etc/phpMyAdmin/config.inc.php
+&& sed -i "/AllowNoPassword.*/ {N; s/AllowNoPassword.*FALSE/AllowNoPassword'] = TRUE/g}" /etc/phpMyAdmin/config.inc.php \
+&& sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 512M/g' /etc/php.ini \
+&& sed -i 's/post_max_size = 8M/post_max_size = 512M/g' /etc/php.ini \
+&& sed -i 's/memory_limit = 128M/memory_limit = 512M/g' /etc/php.ini
 
 # Install MariaDB
 COPY MariaDB.repo /etc/yum.repos.d/MariaDB.repo
