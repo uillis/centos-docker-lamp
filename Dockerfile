@@ -24,11 +24,8 @@ RUN yum -y install python-setuptools \
 # Install Apache
 RUN yum -y install httpd
 
-# Install Remi Updated PHP 7
-RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
-&& rpm -Uvh remi-release-7.rpm \
-&& yum-config-manager --enable remi-php70 \
-&& yum -y install php php-devel php-gd php-pdo php-soap php-xmlrpc php-xml
+# Install PHP 5.6
+RUN yum -y install php php-mysql php-devel php-gd php-pdo php-soap php-xmlrpc php-xml
 
 # Reconfigure Apache
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
@@ -41,7 +38,6 @@ RUN yum -y install phpmyadmin \
 && sed -i "s/'cookie'/'config'/g" /etc/phpMyAdmin/config.inc.php \
 && sed -i "s/\['user'\] .*= '';/\['user'\] = 'root';/g" /etc/phpMyAdmin/config.inc.php \
 && sed -i "/AllowNoPassword.*/ {N; s/AllowNoPassword.*FALSE/AllowNoPassword'] = TRUE/g}" /etc/phpMyAdmin/config.inc.php
-
 
 # Install MariaDB
 COPY MariaDB.repo /etc/yum.repos.d/MariaDB.repo
@@ -59,7 +55,6 @@ RUN curl --silent --location https://rpm.nodesource.com/setup_4.x | bash - \
 && yum -y install nodejs gcc-c++ make \
 && npm install -g npm \
 && npm install -g gulp grunt-cli
-
 
 # UTC Timezone & Networking
 RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
