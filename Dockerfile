@@ -57,7 +57,7 @@ RUN wget http://files.drush.org/drush.phar \
 && mv drush.phar /usr/local/bin/drush
 
 # Setup NodeJS
-RUN curl --silent --location https://rpm.nodesource.com/setup_4.x | bash - \
+RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash - \
 && yum -y install nodejs gcc-c++ make \
 && npm install -g npm \
 && npm install -g gulp grunt-cli
