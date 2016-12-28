@@ -13,7 +13,7 @@ A CentOS 7 Docker LAMP suitable for local Drupal or WordPress development. This 
 - Drush
 - NodeJS
 
-# Example Usage with Data in Container
+# Example Usage with Data Inside Docker
 
 Build and then run this container with: 
 
@@ -23,11 +23,11 @@ To access the web server visit https://localhost:8443, or http://localhost:8080
 
 To access phpMyadmin visit https://localhost:8080/phpmyadmin. 
 
-Attach to the container by running `sudo docker exec -i -t da94d0ba7f7c /bin/bash`
+Attach to the container by running `sudo docker exec -i -t "your container id" /bin/bash`
 
-Put your web code in /var/www/html/
+Put your web code in /var/www/html/ inside the docker.
 
-# Example Usage for Existing Web Project
+# Example Usage with Data Outside of Docker
 
 Create a project folder and database folder.
 
@@ -46,4 +46,4 @@ You can now move a copy of your Drupal or WordPress files into the html folder, 
 
 To access the web server visit https://localhost:8443, or http://localhost:8080
 
-To access phpMyadmin visit https://localhost:8080/phpmyadmin.   
+To access phpMyadmin visit https://localhost:8080/phpmyadmin. 
