@@ -22,7 +22,7 @@ RUN yum -y install python-setuptools \
 && easy_install supervisor
 
 # Install Apache
-RUN yum -y install httpd
+RUN yum -y install httpd mod_ssl
 
 # Install Remi PHP Repo
 RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
@@ -69,5 +69,5 @@ RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
 	&& echo "NETWORKING=yes" > /etc/sysconfig/network
 
 COPY supervisord.conf /etc/supervisord.conf
-EXPOSE 22 80
+EXPOSE 22 80 443
 CMD ["/usr/bin/supervisord"]
