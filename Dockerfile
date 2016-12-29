@@ -21,8 +21,8 @@ RUN yum -y install python-setuptools \
 && mkdir -p /var/log/supervisor \
 && easy_install supervisor
 
-# Install Apache
-RUN yum -y install httpd mod_ssl
+# Install Apache & EXIM
+RUN yum -y install httpd mod_ssl exim
 
 # Install Remi PHP Repo
 RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
@@ -33,7 +33,9 @@ RUN yum-config-manager --enable remi-php56 \
 && yum -y install php php-mysql php-devel php-gd php-pdo php-soap php-xmlrpc php-xml
 
 # Reconfigure Apache
-RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf \
+&& chown root:apache /var/www/html \
+&& chmod g+s /var/www/html
 
 # Configure phpMyAdmin & PHP
 RUN yum install -y phpMyAdmin \
@@ -51,7 +53,6 @@ RUN yum install -y phpMyAdmin \
 COPY MariaDB.repo /etc/yum.repos.d/MariaDB.repo
 RUN yum clean all;yum -y install mariadb-server mariadb-client
 VOLUME /var/lib/mysql
-EXPOSE 3306
 
 # Setup Drush
 RUN wget http://files.drush.org/drush.phar \
@@ -69,5 +70,5 @@ RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
 	&& echo "NETWORKING=yes" > /etc/sysconfig/network
 
 COPY supervisord.conf /etc/supervisord.conf
-EXPOSE 22 80 443
+EXPOSE 22 80 443 3306
 CMD ["/usr/bin/supervisord"]
