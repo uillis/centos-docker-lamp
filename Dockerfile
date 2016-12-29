@@ -31,8 +31,8 @@ RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
 && yum -y install php php-devel php-gd php-pdo php-soap php-xmlrpc php-xml
 
 # Reconfigure Apache
+VOLUME /var/www/html
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf \
-&& VOLUME /var/www/html \
 && chown root:apache /var/www/html \
 && chmod g+s /var/www/html
 
