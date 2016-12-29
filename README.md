@@ -6,6 +6,7 @@ A CentOS 7 Docker LAMP suitable for local Drupal or WordPress development. This 
 - Apache 2.4 (w/ SSL)
 - MariaDB 10.1
 - PHP 7.0 or 5.6
+- EXIM
 - SSH
 - phpMyAdmin
 - Git
