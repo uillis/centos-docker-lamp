@@ -33,10 +33,10 @@ RUN yum-config-manager --enable remi-php56 \
 && yum -y install php php-mysql php-devel php-gd php-pdo php-soap php-xmlrpc php-xml
 
 # Reconfigure Apache
-VOLUME /var/www/html
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf \
 && chown root:apache /var/www/html \
 && chmod g+s /var/www/html
+VOLUME /var/www/html
 
 # Configure phpMyAdmin & PHP
 RUN yum install -y phpMyAdmin \
