@@ -1,5 +1,5 @@
 FROM centos:centos7
-MAINTAINER Wesley Render <info@otherdata.com>
+MAINTAINER Wesley Render <wes.render@outlook.com>
 
 # Install varioius utilities
 RUN yum -y install curl wget unzip git vim \

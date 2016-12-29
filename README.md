@@ -2,7 +2,7 @@
 A CentOS 7 Docker LAMP suitable for local Drupal or WordPress development. This is meant to simulate a development environment compatible with cPanel hosting. This container is ideal for running on Windows or Mac as everything is in one container.
 
 # Features
-- Centos 7
+- CentOS 7
 - Apache 2.4
 - Mod SSL
 - MariaDB 10.1
