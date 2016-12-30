@@ -32,9 +32,9 @@ RUN wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm \
 
 # Reconfigure Apache
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf \
-&& chown root:apache /var/www/html \
-&& chmod g+s /var/www/html
+&& chown root:apache /var/www/html
 VOLUME /var/www/html
+RUN chmod g+s /var/www/html
 
 # Install phpMyAdmin
 RUN yum install -y phpMyAdmin \
