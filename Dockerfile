@@ -34,9 +34,9 @@ RUN yum-config-manager --enable remi-php56 \
 
 # Reconfigure Apache
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf \
-&& chown root:apache /var/www/html \
-&& chmod g+s /var/www/html
+&& chown root:apache /var/www/html
 VOLUME /var/www/html
+RUN chmod g+s /var/www/html
 
 # Configure phpMyAdmin & PHP
 RUN yum install -y phpMyAdmin \
