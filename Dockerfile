@@ -34,9 +34,8 @@ RUN yum-config-manager --enable remi-php56 \
 
 # Reconfigure Apache
 RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/httpd/conf/httpd.conf \
-&& chown root:apache /var/www/html
-VOLUME /var/www/html
-RUN chmod g+s /var/www/html
+&& chown root:apache /var/www/html \
+&& chmod g+s /var/www/html
 
 # Configure phpMyAdmin & PHP
 RUN yum install -y phpMyAdmin \
@@ -53,7 +52,6 @@ RUN yum install -y phpMyAdmin \
 # Install MariaDB
 COPY MariaDB.repo /etc/yum.repos.d/MariaDB.repo
 RUN yum clean all;yum -y install mariadb-server mariadb-client
-VOLUME /var/lib/mysql
 
 # Setup Drush
 RUN wget http://files.drush.org/drush.phar \
