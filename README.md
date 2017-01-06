@@ -22,7 +22,7 @@ A CentOS 7 Docker LAMP suitable for local Drupal or WordPress development. This 
 Or to run it with older PHP 5.6 run the container with:
 ``docker run -d -p 8080:80 -p 8443:443 -p 8022:22 -t otherdata/centos--docker-lamp:5.6``
 
-To access the web server visit [https://localhost:8443](https://localhost:8443)(For SSL) or [http://localhost:8080](http://localhost:8080)(For no SSL)
+To access the web server visit [https://localhost:8443](https://localhost:8443) for SSL or [http://localhost:8080](http://localhost:8080) for no SSL.
 
 To access phpMyadmin visit [https://localhost:8080/phpmyadmin](https://localhost:8080/phpmyadmin)
 
@@ -30,7 +30,7 @@ Attach to the container by running:
 `sudo docker exec -i -t "your container id" /bin/bash`
 
 SSH to the container by running:
-`ssh root@localhost -p 8022` (Password docker) (For Windows and Mac substitute `localhost` with the IP of your docker)
+`ssh root@localhost -p 8022` Use password: docker. For Windows and Mac substitute `localhost` with the IP of your docker.
 
 Put your web code in /var/www/html/ inside the docker.
 
@@ -46,8 +46,8 @@ Move into the project folder:
 Run the command to launch the docker and map project and database directory:
 ``docker run -d -p 8080:80 -p 8443:443 -p 8022:22 -v `pwd`/html:/var/www/html -v `pwd`/database:/var/lib/phpMyAdmin/upload -t otherdata/centos-docker-lamp:latest``
 
-You can now move a copy of your Drupal or WordPress files into the html folder and move an .sql dump into the database folder (Or upload it using phpMyAdmin). 
+You can now move a copy of your Drupal or WordPress files into the html folder and move an .sql dump into the database folder, or upload it using phpMyAdmin. 
 
-To access the web server visit [https://localhost:8443](https://localhost:8443)(For SSL) or [http://localhost:8080](http://localhost:8080)(For no SSL)
+To access the web server visit [https://localhost:8443](https://localhost:8443) for SSL or [http://localhost:8080](http://localhost:8080) for no SSL.
 
 To access phpMyadmin visit [https://localhost:8080/phpmyadmin](https://localhost:8080/phpmyadmin)
