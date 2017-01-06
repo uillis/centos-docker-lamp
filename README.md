@@ -44,7 +44,7 @@ Move into the project folder:
 `cd project`
 
 Run the command to launch the docker and map project and database directory:
-``docker run -d -p 8080:80 -p 8443:443 -p 8022:22 -v `pwd`/html:/var/www/html -v `pwd`/database:/var/lib/phpMyAdmin/upload -t otherdata/centos-docker-lamp:latest`
+``docker run -d -p 8080:80 -p 8443:443 -p 8022:22 -v `pwd`/html:/var/www/html -v `pwd`/database:/var/lib/phpMyAdmin/upload -t otherdata/centos-docker-lamp:latest``
 
 You can now move a copy of your Drupal or WordPress files into the html folder and move an .sql dump into the database folder (Or upload it using phpMyAdmin). 
 
