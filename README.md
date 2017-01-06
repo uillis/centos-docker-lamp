@@ -37,8 +37,7 @@ Put your web code in /var/www/html/ inside the docker.
 # Example Usage with Data Outside of Docker
 
 Create a project folder and database folder:
-`mkdir -p project/database`
-`mkdir -p project/html`
+`mkdir -p project/database; mkdir -p project/html`
 
 Move into the project folder:
 `cd project`
