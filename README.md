@@ -22,9 +22,9 @@ A CentOS 7 Docker LAMP suitable for local Drupal or WordPress development. This 
 Or to run it with older PHP 5.6 run the container with:
 ``docker run -d -p 8080:80 -p 8443:443 -p 8022:22 -t otherdata/centos--docker-lamp:5.6``
 
-To access the web server visit [a link](https://localhost:8443) or [a link](http://localhost:8080)
+To access the web server visit [https://localhost:8443](https://localhost:8443) or [http://localhost:8080](http://localhost:8080)
 
-To access phpMyadmin visit [a link](https://localhost:8080/phpmyadmin)
+To access phpMyadmin visit [https://localhost:8080/phpmyadmin](https://localhost:8080/phpmyadmin)
 
 Attach to the container by running:
 `sudo docker exec -i -t "your container id" /bin/bash`
@@ -48,6 +48,6 @@ Run the command to launch the docker and map project and database directory:
 
 You can now move a copy of your Drupal or WordPress files into the html folder and move an .sql dump into the database folder (Or upload it using phpMyAdmin). 
 
-To access the web server visit [a link](https://localhost:8443) or [a link](http://localhost:8080)
+To access the web server visit [https://localhost:8443](https://localhost:8443) or [http://localhost:8080](http://localhost:8080)
 
-To access phpMyadmin visit [a link](https://localhost:8080/phpmyadmin)
+To access phpMyadmin visit [https://localhost:8080/phpmyadmin](https://localhost:8080/phpmyadmin)
