@@ -20,7 +20,7 @@ A CentOS 7 Docker LAMP suitable for local Drupal or WordPress development. This 
 ``docker run -d -p 8080:80 -p 8443:443 -p 8022:22 -t otherdata/centos-docker-lamp:latest``
 
 Or to run it with older PHP 5.6 run the container with:
-``docker run -d -p 8080:80 -p 8443:443 -p 8022:22 -t otherdata/centos--docker-lamp:5.6``
+``docker run -d -p 8080:80 -p 8443:443 -p 8022:22 -t otherdata/centos-docker-lamp:5.6``
 
 To access the web server visit [https://localhost:8443](https://localhost:8443) for SSL or [http://localhost:8080](http://localhost:8080) for no SSL.
 
