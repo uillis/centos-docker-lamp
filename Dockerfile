@@ -67,5 +67,5 @@ RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
 	&& echo "NETWORKING=yes" > /etc/sysconfig/network
 
 COPY supervisord.conf /etc/supervisord.conf
-EXPOSE 22 80 443 3306
+EXPOSE 22 25 80 443 3306
 CMD ["/usr/bin/supervisord"]
