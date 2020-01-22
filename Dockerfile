@@ -1,7 +1,7 @@
 FROM centos:centos7
 MAINTAINER Wesley Render <wes.render@outlook.com>
 
-# Install varioius utilities
+# Install utilities
 RUN yum -y install curl wget unzip git vim \
 iproute python-setuptools hostname inotify-tools yum-utils which \
 epel-release openssh-server openssh-clients
@@ -52,15 +52,15 @@ COPY MariaDB.repo /etc/yum.repos.d/MariaDB.repo
 RUN yum clean all;yum -y install mariadb-server mariadb-client
 
 # Setup Drush
-RUN wget http://files.drush.org/drush.phar \
-&& chmod +x drush.phar \
-&& mv drush.phar /usr/local/bin/drush
+# RUN wget http://files.drush.org/drush.phar \
+# && chmod +x drush.phar \
+# && mv drush.phar /usr/local/bin/drush
 
 # Setup NodeJS
-RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash - \
-&& yum -y install nodejs gcc-c++ make \
-&& npm install -g npm \
-&& npm install -g gulp grunt-cli
+# RUN curl --silent --location https://rpm.nodesource.com/setup_6.x | bash - \
+# && yum -y install nodejs gcc-c++ make \
+# && npm install -g npm \
+# && npm install -g gulp grunt-cli
 
 # UTC Timezone & Networking
 RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
@@ -68,4 +68,4 @@ RUN ln -sf /usr/share/zoneinfo/UTC /etc/localtime \
 
 COPY supervisord.conf /etc/supervisord.conf
 EXPOSE 22 25 80 443 3306
-CMD ["/usr/bin/supervisord"]
+ENTRYPOINT ["/usr/bin/supervisord"]
